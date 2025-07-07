@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Wilderness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6B46C1 0%, #3B82F6 50%, #1E40AF 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .left-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 4rem 2rem 4rem 4rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 0 50px 50px 0;
+            margin: 2rem 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #6B46C1;
+        }
+
+        .logo::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: #6B46C1;
+            border-radius: 50%;
+        }
+
+        .main-content {
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #1F2937;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #6B7280;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 400px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #7C3AED 0%, #6366F1 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.4);
+        }
+
+        .right-panel {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .wilderness-scene {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            max-width: 600px;
+        }
+
+        .mountains {
+            position: absolute;
+            bottom: 200px;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, #4C1D95, #5B21B6);
+            clip-path: polygon(0 100%, 20% 60%, 40% 80%, 60% 40%, 80% 70%, 100% 50%, 100% 100%);
+        }
+
+        .mountains::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, #3730A3, #4338CA);
+            clip-path: polygon(10% 100%, 30% 70%, 50% 90%, 70% 50%, 90% 80%, 100% 60%, 100% 100%);
+        }
+
+        .trees {
+            position: absolute;
+            bottom: 150px;
+            left: 0;
+            right: 0;
+            height: 150px;
+        }
+
+        .tree {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .tree:nth-child(1) {
+            left: 10%;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 80px solid #1E293B;
+        }
+
+        .tree:nth-child(2) {
+            left: 25%;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 100px solid #0F172A;
+        }
+
+        .tree:nth-child(3) {
+            left: 40%;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 70px solid #334155;
+        }
+
+        .tree:nth-child(4) {
+            right: 30%;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-bottom: 90px solid #1E293B;
+        }
+
+        .tree:nth-child(5) {
+            right: 15%;
+            border-left: 16px solid transparent;
+            border-right: 16px solid transparent;
+            border-bottom: 85px solid #0F172A;
+        }
+
+        .tree:nth-child(6) {
+            right: 5%;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-bottom: 75px solid #334155;
+        }
+
+        .tent {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 60px;
+        }
+
+        .tent::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 60px solid #FBD38D;
+        }
+
+        .tent::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 45px solid transparent;
+            border-right: 45px solid transparent;
+            border-bottom: 55px solid #F6AD55;
+        }
+
+        .campfire {
+            position: absolute;
+            bottom: 80px;
+            left: 60%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #FED7AA 30%, #FB923C 70%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flicker 2s infinite alternate;
+        }
+
+        .campfire::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: #8B4513;
+            border-radius: 2px;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+            50% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
+            100% { transform: translateX(-50%) scale(0.9) rotate(-1deg); }
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .star:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .star:nth-child(2) { top: 30%; left: 70%; animation-delay: 1s; }
+        .star:nth-child(3) { top: 10%; left: 50%; animation-delay: 2s; }
+        .star:nth-child(4) { top: 40%; left: 30%; animation-delay: 0.5s; }
+        .star:nth-child(5) { top: 15%; left: 80%; animation-delay: 1.5s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .navigation-dots {
+            position: absolute;
+            bottom: 2rem;
+            left: 4rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: white;
+        }
+
+        .dot:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                border-radius: 0 0 30px 30px;
+                padding: 2rem;
+                margin: 0 0 2rem 0;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .wilderness-scene {
+                height: 400px;
+            }
+            
+            .navigation-dots {
+                left: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="logo">LOCO</div>
+            <div class="main-content">
+                <h1>WELCOME TO<br>THE WILDERNESS</h1>
+                <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra mauris eu nulla consectetur dictum in at mauris.</p>
+                <button class="cta-button">GET STARTED</button>
+            </div>
+        </div>
+        
+        <div class="right-panel">
+            <div class="wilderness-scene">
+                <div class="stars">
+                    <div class="star"></div>
+                    <div class="star"></div>
+                    <div class="star"></div>
+                    <div class="star"></div>
+                    <div class="star"></div>
+                </div>
+                <div class="mountains"></div>
+                <div class="trees">
+                    <div class="tree"></div>
+                    <div class="tree"></div>
+                    <div class="tree"></div>
+                    <div class="tree"></div>
+                    <div class="tree"></div>
+                    <div class="tree"></div>
+                </div>
+                <div class="tent"></div>
+                <div class="campfire"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <script>
+        // Add interactivity to navigation dots
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                dots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+            });
+        });
+
+        // Add button click effect
+        const button = document.querySelector('.cta-button');
+        button.addEventListener('click', () => {
+            button.style.transform = 'translateY(-3px) scale(0.98)';
+            setTimeout(() => {
+                button.style.transform = 'translateY(-3px) scale(1)';
+            }, 150);
+        });
+    </script>
+</body>
+</html>
